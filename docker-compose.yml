@@ -1,0 +1,34 @@
+services:
+  agent-radar:
+    build: ./server
+    restart: unless-stopped
+    environment:
+      PORT: 8080
+      DATA_DIR: /app/data
+      PUBLIC_DIR: /app/public
+      PUBLIC_BASE_URL: https://${AGENT_RADAR_DOMAIN}
+      ADMIN_API_KEY: ${ADMIN_API_KEY}
+    volumes:
+      - agent-radar-data:/app/data
+    expose:
+      - "8080"
+
+  caddy:
+    image: caddy:2-alpine
+    restart: unless-stopped
+    depends_on:
+      - agent-radar
+    environment:
+      AGENT_RADAR_DOMAIN: ${AGENT_RADAR_DOMAIN}
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy-data:/data
+      - caddy-config:/config
+
+volumes:
+  agent-radar-data:
+  caddy-data:
+  caddy-config:

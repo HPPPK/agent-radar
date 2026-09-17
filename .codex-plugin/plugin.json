@@ -1,0 +1,39 @@
+{
+  "name": "agent-radar",
+  "version": "0.1.1",
+  "description": "Daily Agent technology and GitHub intelligence with plain-language explanations.",
+  "author": {
+    "name": "Jingyu Pan",
+    "email": "hpppk@qq.com"
+  },
+  "license": "Apache-2.0",
+  "keywords": [
+    "agent",
+    "github",
+    "developer-tools",
+    "research",
+    "daily-brief"
+  ],
+  "skills": "./skills/",
+  "mcpServers": "./.mcp.json",
+  "interface": {
+    "displayName": "Agent Radar",
+    "shortDescription": "看懂每日 Agent 技术和 GitHub 项目",
+    "longDescription": "每天汇总 Agent 工具、技术更新和 GitHub Trending，并提供专业说明、大白话解释、具体用途、适合人群、来源类型与复核状态。",
+    "developerName": "Jingyu Pan",
+    "category": "Developer Tools",
+    "capabilities": [
+      "Interactive",
+      "Read"
+    ],
+    "defaultPrompt": [
+      "用大白话讲讲今天最重要的 Agent 技术变化",
+      "今天 GitHub 上有哪些值得学习的项目？",
+      "解释今天日报里最难懂的专业术语"
+    ],
+    "brandColor": "#2563EB",
+    "composerIcon": "./assets/icon.png",
+    "logo": "./assets/logo.png",
+    "logoDark": "./assets/logo-dark.png"
+  }
+}

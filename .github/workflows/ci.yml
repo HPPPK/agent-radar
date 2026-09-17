@@ -1,0 +1,39 @@
+name: ci
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: server/package-lock.json
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install server dependencies
+        working-directory: server
+        run: npm ci
+      - name: Audit runtime dependencies
+        working-directory: server
+        run: npm audit --omit=dev --audit-level=high
+      - name: Build and test
+        working-directory: server
+        run: npm run check
+      - name: Security and release audit
+        run: python scripts/security_audit.py
+      - name: Build plugin package
+        run: python scripts/package_plugin.py --output agent-radar-plugin.zip
+      - uses: actions/upload-artifact@v4
+        with:
+          name: agent-radar-plugin
+          path: agent-radar-plugin.zip

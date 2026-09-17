@@ -1,0 +1,17 @@
+services:
+  agent-radar:
+    build: ./server
+    restart: unless-stopped
+    environment:
+      PORT: 8080
+      DATA_DIR: /app/data
+      PUBLIC_DIR: /app/public
+      PUBLIC_BASE_URL: ${AGENT_RADAR_TEST_BASE_URL:-http://127.0.0.1:8788}
+      ADMIN_API_KEY: ${ADMIN_API_KEY:?ADMIN_API_KEY is required}
+    ports:
+      - "127.0.0.1:8788:8080"
+    volumes:
+      - agent-radar-test-data:/app/data
+
+volumes:
+  agent-radar-test-data:
