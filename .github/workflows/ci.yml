@@ -33,7 +33,7 @@ jobs:
         run: python scripts/security_audit.py
       - name: Build plugin package
         run: python scripts/package_plugin.py --output agent-radar-plugin.zip
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: agent-radar-plugin
           path: agent-radar-plugin.zip
